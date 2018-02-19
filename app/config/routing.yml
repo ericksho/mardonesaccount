@@ -1,4 +1,11 @@
-books:
+teamup:
     resource: "@BooksBundle/Controller/"
     type:     annotation
     prefix:   /
+
+logout:
+    path:   /logout
+
+backend_security:
+    resource: "@BooksBundle/Controller/SecurityController.php"
+    type:     annotation

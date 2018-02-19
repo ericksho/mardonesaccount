@@ -1,0 +1,200 @@
+html {
+    display: table;
+    margin: auto;
+}
+
+header {
+  width:100%;
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    width: 1024px;
+    padding: 70px 5px 50px 5px;
+}
+
+label {
+  margin-top: 7px;
+  margin-bottom: 3px;
+}
+
+/**************** Buttons ********************/
+.btn1, .btn2{
+  float: left;
+  margin: 5px;
+  margin-top: 30px;
+}
+
+.btn3{
+  margin: 5px;
+  margin-top: 30px;
+}
+
+.checkboxes_list input[type=checkbox] {
+  margin-right: 5px;
+  margin-left: 20px;
+}
+
+.checkboxes_list label {
+  display: inline;
+  font-weight: normal;
+}
+.checkboxes_list label:after { 
+  content:"\A"; 
+  white-space:pre; 
+}
+
+/**************** Chat ********************/
+
+span.me
+{
+  border-radius: 100px;
+  background: #ffb300;
+  color : white;
+  padding : 8px 8px;
+}
+
+span.you
+{
+  border-radius: 100px;
+  background: #9c27b0;
+  color : white;
+  padding : 8px 8px;
+}
+
+.msg-container-me
+{
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 8px;
+  text-align: right;
+  margin-top: 2px;
+}
+
+.msg-contanier-you
+{
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 8px;
+  text-align: left;
+  margin-top: 2px;
+}
+
+.msg-content-me
+{
+  display: inline-block;
+  text-align: left;
+  max-width: 90%;
+}
+
+.msg-content-you
+{
+  display: inline-block;
+  text-align: right;
+  max-width: 90%;
+}
+
+.msg-content-you .panel, .msg-content-me .panel
+{
+  margin-bottom: 1px;
+}
+
+.msg-text
+{
+  text-align: left;
+  word-wrap: break-word;
+  padding: 5px;
+}
+
+.msg-time
+{
+  text-align: right;
+  font-size: 8px;
+}
+
+.msg-me
+{
+  text-align: right;
+  display: inline-block;
+  float: right;
+  padding-left: 3px;
+  margin-top: 6px;
+}
+
+.msg-you
+{
+  text-align: left;
+  display: inline-block;
+  float: left;
+  padding-right: 3px;
+  margin-top: 6px;
+}
+
+.chat-window
+{
+  height: 50%;
+}
+
+.chat-scrollable
+{
+  height:400px; 
+  overflow:auto;
+}
+
+div#booksbundle_user_occupation input
+{
+  margin-right: 3px;
+}
+
+div#booksbundle_user_occupation label
+{
+  margin-right: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
