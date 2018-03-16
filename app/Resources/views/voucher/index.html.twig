@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Vouchers list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>State</th>
+                <th>Type</th>
+                <th>Number</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for voucher in vouchers %}
+            <tr>
+                <td><a href="{{ path('voucher_show', { 'id': voucher.id }) }}">{{ voucher.id }}</a></td>
+                <td>{{ voucher.state }}</td>
+                <td>{{ voucher.type }}</td>
+                <td>{{ voucher.number }}</td>
+                <td>{% if voucher.date %}{{ voucher.date|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('voucher_show', { 'id': voucher.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('voucher_edit', { 'id': voucher.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('voucher_new') }}">Create a new voucher</a>
+        </li>
+    </ul>
+{% endblock %}

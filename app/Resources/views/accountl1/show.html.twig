@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Accountl1</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ accountL1.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ accountL1.name }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ accountL1.code }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('accountl1_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('accountl1_edit', { 'id': accountL1.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

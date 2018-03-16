@@ -3,6 +3,7 @@
 namespace BooksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * AccountL1
@@ -34,6 +35,23 @@ class AccountL1
      * @ORM\Column(name="code", type="integer")
      */
     private $code;
+
+    /**
+     * Many Accounts have One Enterprise.
+     * @ORM\ManyToOne(targetEntity="Enterprise", inversedBy="accounts")
+     * @ORM\JoinColumn(name="enterprise_id", referencedColumnName="id")
+     */
+    private $enterprise;
+
+    /**
+     * One AccountL1 has Many AccountsL2.
+     * @ORM\OneToMany(targetEntity="AccountL2", mappedBy="accountL1")
+     */
+    private $accountsL2;
+
+    public function __construct() {
+        $this->accountsL2 = new ArrayCollection();
+    }
 
 
     /**
@@ -90,5 +108,61 @@ class AccountL1
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Set enterprise
+     *
+     * @param \BooksBundle\Entity\Enterprise $enterprise
+     * @return AccountL1
+     */
+    public function setEnterprise(\BooksBundle\Entity\Enterprise $enterprise = null)
+    {
+        $this->enterprise = $enterprise;
+
+        return $this;
+    }
+
+    /**
+     * Get enterprise
+     *
+     * @return \BooksBundle\Entity\Enterprise 
+     */
+    public function getEnterprise()
+    {
+        return $this->enterprise;
+    }
+
+    /**
+     * Add accountsL2
+     *
+     * @param \BooksBundle\Entity\AccountL2 $accountsL2
+     * @return AccountL1
+     */
+    public function addAccountsL2(\BooksBundle\Entity\AccountL2 $accountsL2)
+    {
+        $this->accountsL2[] = $accountsL2;
+
+        return $this;
+    }
+
+    /**
+     * Remove accountsL2
+     *
+     * @param \BooksBundle\Entity\AccountL2 $accountsL2
+     */
+    public function removeAccountsL2(\BooksBundle\Entity\AccountL2 $accountsL2)
+    {
+        $this->accountsL2->removeElement($accountsL2);
+    }
+
+    /**
+     * Get accountsL2
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAccountsL2()
+    {
+        return $this->accountsL2;
     }
 }

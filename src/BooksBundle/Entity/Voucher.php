@@ -3,6 +3,7 @@
 namespace BooksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Voucher
@@ -48,6 +49,23 @@ class Voucher
      * @ORM\Column(name="date", type="date")
      */
     private $date;
+
+    /**
+     * Many Vouchers have One AccountL3.
+     * @ORM\ManyToOne(targetEntity="AccountL3", inversedBy="vouchers")
+     * @ORM\JoinColumn(name="accountL3_id", referencedColumnName="id")
+     */
+    private $accountL3;
+
+    /**
+     * One Voucher has Many Items
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="voucher")
+     */
+    private $items;
+
+    public function __construct() {
+        $this->items = new ArrayCollection();
+    }
 
 
     /**
@@ -150,5 +168,61 @@ class Voucher
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set accountL3
+     *
+     * @param \BooksBundle\Entity\AccountL3 $accountL3
+     * @return Voucher
+     */
+    public function setAccountL3(\BooksBundle\Entity\AccountL3 $accountL3 = null)
+    {
+        $this->accountL3 = $accountL3;
+
+        return $this;
+    }
+
+    /**
+     * Get accountL3
+     *
+     * @return \BooksBundle\Entity\AccountL3 
+     */
+    public function getAccountL3()
+    {
+        return $this->accountL3;
+    }
+
+    /**
+     * Add items
+     *
+     * @param \BooksBundle\Entity\Item $items
+     * @return Voucher
+     */
+    public function addItem(\BooksBundle\Entity\Item $items)
+    {
+        $this->items[] = $items;
+
+        return $this;
+    }
+
+    /**
+     * Remove items
+     *
+     * @param \BooksBundle\Entity\Item $items
+     */
+    public function removeItem(\BooksBundle\Entity\Item $items)
+    {
+        $this->items->removeElement($items);
+    }
+
+    /**
+     * Get items
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }

@@ -1,6 +1,6 @@
 php app/console doctrine:database:create
 php app/console doctrine:generate:entity
-php app/console doctrine:generate:entities BooksBundle/Entity/Deadline
+php app/console doctrine:generate:entities BooksBundle/Entity/
 php app/console generate:doctrine:crud
 php app/console doctrine:schema:validate
 php app/console doctrine:schema:update --force

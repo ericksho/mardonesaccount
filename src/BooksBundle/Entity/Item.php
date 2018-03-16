@@ -49,6 +49,12 @@ class Item
      */
     private $documentNumber;
 
+    /**
+     * Many Items have One Voucher.
+     * @ORM\ManyToOne(targetEntity="Voucher", inversedBy="items")
+     * @ORM\JoinColumn(name="voucher_id", referencedColumnName="id")
+     */
+    private $voucher;
 
     /**
      * Get id
@@ -150,5 +156,28 @@ class Item
     public function getDocumentNumber()
     {
         return $this->documentNumber;
+    }
+
+    /**
+     * Set voucher
+     *
+     * @param \BooksBundle\Entity\Voucher $voucher
+     * @return Item
+     */
+    public function setVoucher(\BooksBundle\Entity\Voucher $voucher = null)
+    {
+        $this->voucher = $voucher;
+
+        return $this;
+    }
+
+    /**
+     * Get voucher
+     *
+     * @return \BooksBundle\Entity\Voucher 
+     */
+    public function getVoucher()
+    {
+        return $this->voucher;
     }
 }

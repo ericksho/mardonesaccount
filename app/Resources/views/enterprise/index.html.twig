@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Enterprises list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for enterprise in enterprises %}
+            <tr>
+                <td><a href="{{ path('enterprise_show', { 'id': enterprise.id }) }}">{{ enterprise.id }}</a></td>
+                <td>{{ enterprise.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('enterprise_show', { 'id': enterprise.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('enterprise_edit', { 'id': enterprise.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('enterprise_new') }}">Create a new enterprise</a>
+        </li>
+    </ul>
+{% endblock %}

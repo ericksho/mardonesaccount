@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Accountl3s list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for accountL3 in accountL3s %}
+            <tr>
+                <td><a href="{{ path('accountl3_show', { 'id': accountL3.id }) }}">{{ accountL3.id }}</a></td>
+                <td>{{ accountL3.name }}</td>
+                <td>{{ accountL3.code }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('accountl3_show', { 'id': accountL3.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('accountl3_edit', { 'id': accountL3.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('accountl3_new') }}">Create a new accountL3</a>
+        </li>
+    </ul>
+{% endblock %}
