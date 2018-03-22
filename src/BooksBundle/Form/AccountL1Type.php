@@ -5,6 +5,7 @@ namespace BooksBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class AccountL1Type extends AbstractType
 {
@@ -13,7 +14,18 @@ class AccountL1Type extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('code')->add('enterprise');
+        $builder
+            ->add('name',null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
+            ->add('code', null,array('label' => 'Código','attr' => array('class'=>'form-control')))
+            ->add('enterprise', EntityType::class, array(
+                        'label' => 'Empresa',
+                        'required' => false,
+                        'class' => 'BooksBundle:Enterprise',
+                        'multiple' => false,
+                        'attr' => array('class'=>'js-basic-single'),
+                        'choice_label' => 'name',))
+
+        ;
     }
     
     /**

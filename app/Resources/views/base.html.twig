@@ -35,6 +35,30 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Empresas 
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{path('enterprise_new')}}">Nueva</a></li>
+                            <li><a href="{{path('enterprise_index')}}">Ver Empresas</a></li>
+                        </ul>
+                    </li>
+                    {% if app.session.get('enterprise') is not null %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Cuentas 
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{path('accountl1_new')}}">Nueva Cuenta Nivel 1</a></li>
+                                <li><a href="{{path('accountl1_index')}}">Ver Cuentas</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         {% if is_granted(['IS_AUTHENTICATED_FULLY', 'IS_AUTHENTICATED_REMEMBERED']) %}

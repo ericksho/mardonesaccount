@@ -1,16 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Accountl1 creation</h1>
+    <h1>Nueva Cuenta</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <br>
+        <input type="submit" class="btn btn-success btn-sm" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('accountl1_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <a href="{{ path('accountl1_index') }}" class="btn btn-primary btn-sm">Ver cuentas</a>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            $(".js-basic-single").select2({
+                allowClear: false,
+                width: '100%'
+            })
+        };
+    </script>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+        
 {% endblock %}

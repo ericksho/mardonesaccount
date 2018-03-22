@@ -13,7 +13,9 @@ class EnterpriseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder
+            ->add('name', null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
+        ;
     }
     
     /**

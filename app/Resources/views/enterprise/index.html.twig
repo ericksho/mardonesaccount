@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Enterprises list</h1>
+    <h1>Empresas</h1>
 
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Actions</th>
+                <th>Nombre</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -19,11 +19,15 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('enterprise_show', { 'id': enterprise.id }) }}">show</a>
+                            <a href="{{ path('enterprise_show', { 'id': enterprise.id }) }} role="button" class="btn btn-info btn-xs" role="button"">Ver</a>
                         </li>
                         <li>
-                            <a href="{{ path('enterprise_edit', { 'id': enterprise.id }) }}">edit</a>
+                            <a href="{{ path('enterprise_edit', { 'id': enterprise.id }) }}" class="btn btn-primary btn-xs" role="button">Editar</a>
                         </li>
+                        <li>
+                            <a href="{{ path('enterprise_set', { 'id': enterprise.id }) }}" class="btn btn-success btn-xs" role="button">Usar</a>
+                        </li>
+
                     </ul>
                 </td>
             </tr>
@@ -31,9 +35,5 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('enterprise_new') }}">Create a new enterprise</a>
-        </li>
-    </ul>
+    <a href="{{ path('enterprise_new') }}" class="btn btn-primary btn-sm" role="button">Crear Nueva</a>
 {% endblock %}

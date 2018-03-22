@@ -148,6 +148,7 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($user);
         $editForm = $this->createForm('BooksBundle\Form\UserType', $user);
+        $passForm = $this->createForm('BooksBundle\Form\ChangePasswordType', $user);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -159,6 +160,7 @@ class UserController extends Controller
         return $this->render('user/edit.html.twig', array(
             'user' => $user,
             'edit_form' => $editForm->createView(),
+            'pass_form' => $passForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

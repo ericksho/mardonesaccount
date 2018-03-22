@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Accountl1s list</h1>
+    <h1>Cuentas</h1>
 
-    <table>
+    <table class="table table-stiped">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Code</th>
-                <th>Actions</th>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -21,10 +21,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('accountl1_show', { 'id': accountL1.id }) }}">show</a>
+                            <a href="{{ path('accountl1_show', { 'id': accountL1.id }) }}" class="btn btn-info btn-xs" role="button">ver</a>
                         </li>
                         <li>
-                            <a href="{{ path('accountl1_edit', { 'id': accountL1.id }) }}">edit</a>
+                            <a href="{{ path('accountl1_edit', { 'id': accountL1.id }) }}" class="btn btn-primary btn-xs">editar</a>
                         </li>
                     </ul>
                 </td>
@@ -33,9 +33,6 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('accountl1_new') }}">Create a new accountL1</a>
-        </li>
-    </ul>
+    <a href="{{ path('accountl1_new') }}" class="btn btn-primary btn-sm">Nueva Cuenta</a>
+
 {% endblock %}

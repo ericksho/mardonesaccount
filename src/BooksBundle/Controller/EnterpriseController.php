@@ -133,4 +133,19 @@ class EnterpriseController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Set the enterprise entity.
+     *
+     * @Route("/{id}/set", name="enterprise_set")
+     * @Method({"GET", "POST"})
+     */
+    public function setAction(Request $request, Enterprise $enterprise)
+    {
+        $this->get('session')->set('enterprise', $enterprise);
+
+        //$this->get('session')->get('loginUserId');
+
+        return $this->redirectToRoute('home');
+    }
 }
