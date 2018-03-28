@@ -3,6 +3,7 @@
 namespace BooksBundle\Controller;
 
 use BooksBundle\Entity\Voucher;
+use BooksBundle\Entity\AccountL3;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +35,10 @@ class VoucherController extends Controller
     /**
      * Creates a new voucher entity.
      *
-     * @Route("/new", name="voucher_new")
+     * @Route("/new/{id}", name="voucher_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, AccountL3 $accountL3)
     {
         $voucher = new Voucher();
         $form = $this->createForm('BooksBundle\Form\VoucherType', $voucher);

@@ -18,4 +18,22 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    <script type="text/javascript">
+        window.onload = function() {
+
+            $(".js-basic-single").select2({
+                allowClear: false,
+                width: '100%'
+            });        
+        };
+    </script>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+        
 {% endblock %}

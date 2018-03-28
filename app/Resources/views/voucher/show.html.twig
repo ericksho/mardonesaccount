@@ -3,27 +3,23 @@
 {% block body %}
     <h1>Voucher</h1>
 
-    <table>
+    <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ voucher.id }}</td>
-            </tr>
-            <tr>
-                <th>State</th>
+                <th>Estado</th>
                 <td>{{ voucher.state }}</td>
             </tr>
             <tr>
-                <th>Type</th>
+                <th>Tipo</th>
                 <td>{{ voucher.type }}</td>
             </tr>
             <tr>
-                <th>Number</th>
+                <th>Numero</th>
                 <td>{{ voucher.number }}</td>
             </tr>
             <tr>
-                <th>Date</th>
-                <td>{% if voucher.date %}{{ voucher.date|date('Y-m-d') }}{% endif %}</td>
+                <th>Fecha</th>
+                <td>{% if voucher.date %}{{ voucher.date|date('d-m-Y') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>

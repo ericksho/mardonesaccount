@@ -13,7 +13,10 @@ class AccountL2Type extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('code')->add('accountL1');
+        $builder
+            ->add('name',null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
+            ->add('code', null,array('label' => 'Código','attr' => array('class'=>'form-control')))
+        ;
     }
     
     /**

@@ -39,7 +39,27 @@ class AccountL1Controller extends Controller
      */
     public function newAction(Request $request)
     {
+        if(is_null($this->get('session')->get('enterprise')))
+        {
+            $this->addFlash(
+                'notice',
+                array(
+                    'alert' => 'warning',// danger, warning, info, success
+                    'title' => 'Sin Empresa: ',
+                    'message' => 'Debe seleccionar la empresa con la que va a trabajar primero'
+                )
+            );
+
+            return $this->redirectToRoute('enterprise_show');
+        }
+
+        $setted_enterprise = $this->get('session')->get('enterprise');
+
+        $em = $this->getDoctrine()->getManager();
+        $enterprise = $em->getRepository('BooksBundle:Enterprise')->find($setted_enterprise->getId());
+
         $accountL1 = new Accountl1();
+        $accountL1->setEnterprise($enterprise);
         $form = $this->createForm('BooksBundle\Form\AccountL1Type', $accountL1);
         $form->handleRequest($request);
 

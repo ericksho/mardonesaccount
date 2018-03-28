@@ -1,34 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Cuentas</h1>
+    <h1>Cuentas {{app.session.get('enterprise').name}}</h1>
 
     <table class="table table-stiped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nombre</th>
                 <th>Código</th>
+                <th>Nombre</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         {% for accountL1 in accountL1s %}
             <tr>
-                <td><a href="{{ path('accountl1_show', { 'id': accountL1.id }) }}">{{ accountL1.id }}</a></td>
+                <td>{{ accountL1.codeString }}-00-00</td>
                 <td>{{ accountL1.name }}</td>
-                <td>{{ accountL1.code }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('accountl1_show', { 'id': accountL1.id }) }}" class="btn btn-info btn-xs" role="button">ver</a>
-                        </li>
-                        <li>
                             <a href="{{ path('accountl1_edit', { 'id': accountL1.id }) }}" class="btn btn-primary btn-xs">editar</a>
                         </li>
+                        <li>
+                            <a href="{{ path('accountl2_new', { 'id': accountL1.id }) }}" class="btn btn-primary btn-xs">nueva cuenta N2</a>
+                        </li>
                     </ul>
-                </td>
-            </tr>
+                </td><tr>
+            {% for accountL2 in accountL1.accountsL2 %}
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ accountL1.codeString }}-{{ accountL2.codeString }}-00</td>
+                    <td>{{ accountL2.name }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('accountl2_edit', { 'id': accountL2.id }) }}" class="btn btn-primary btn-xs">editar</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('accountl3_new', { 'id': accountL2.id }) }}" class="btn btn-primary btn-xs">nueva cuenta N3</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                {% for accountL3 in accountL2.accountsL3 %}
+                    <tr>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ accountL1.codeString }}-{{ accountL2.codeString }}-{{ accountL3.codeString }}</td>
+                        <td>{{ accountL3.name }}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('accountl3_edit', { 'id': accountL3.id }) }}" class="btn btn-primary btn-xs">editar</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('voucher_new', { 'id': accountL3.id }) }}" class="btn btn-primary btn-xs">ingresar voucher</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
         {% endfor %}
         </tbody>
     </table>

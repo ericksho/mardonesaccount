@@ -2,6 +2,7 @@
 
 namespace BooksBundle\Controller;
 
+use BooksBundle\Entity\AccountL2;
 use BooksBundle\Entity\AccountL3;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -34,12 +35,13 @@ class AccountL3Controller extends Controller
     /**
      * Creates a new accountL3 entity.
      *
-     * @Route("/new", name="accountl3_new")
+     * @Route("/new/{id}", name="accountl3_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, AccountL2 $accountL2)
     {
         $accountL3 = new Accountl3();
+        $accountL3->setAccountL2($accountL2);
         $form = $this->createForm('BooksBundle\Form\AccountL3Type', $accountL3);
         $form->handleRequest($request);
 
@@ -52,6 +54,7 @@ class AccountL3Controller extends Controller
         }
 
         return $this->render('accountl3/new.html.twig', array(
+            'accountL2' => $accountL2,
             'accountL3' => $accountL3,
             'form' => $form->createView(),
         ));

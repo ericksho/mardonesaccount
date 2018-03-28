@@ -110,6 +110,16 @@ class AccountL3
     }
 
     /**
+     * Get code string
+     *
+     * @return integer 
+     */
+    public function getCodeString()
+    {
+        return str_pad($this->code, 2, "0", STR_PAD_LEFT);;
+    }
+
+    /**
      * Set accountL2
      *
      * @param \BooksBundle\Entity\AccountL2 $accountL2

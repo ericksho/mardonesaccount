@@ -107,6 +107,11 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) 
         {
             $user->setRole('ROLE_USER');
+            // Encode the password (you could also do this via Doctrine listener)
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -148,11 +153,17 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($user);
         $editForm = $this->createForm('BooksBundle\Form\UserType', $user);
-        $passForm = $this->createForm('BooksBundle\Form\ChangePasswordType', $user);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            // Encode the password (you could also do this via Doctrine listener)
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
             return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
@@ -160,7 +171,6 @@ class UserController extends Controller
         return $this->render('user/edit.html.twig', array(
             'user' => $user,
             'edit_form' => $editForm->createView(),
-            'pass_form' => $passForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

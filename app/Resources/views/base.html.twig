@@ -36,37 +36,50 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    {% if is_granted(['IS_AUTHENTICATED_FULLY', 'IS_AUTHENTICATED_REMEMBERED']) %}
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Empresas 
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{path('enterprise_new')}}">Nueva</a></li>
-                            <li><a href="{{path('enterprise_index')}}">Ver Empresas</a></li>
-                        </ul>
-                    </li>
-                    {% if app.session.get('enterprise') is not null %}
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Cuentas 
+                                {% if app.session.get('enterprise') is not null %}
+                                    {{app.session.get('enterprise').name}}
+                                {% else %}
+                                    Empresas
+                                {% endif %}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{path('accountl1_new')}}">Nueva Cuenta Nivel 1</a></li>
-                                <li><a href="{{path('accountl1_index')}}">Ver Cuentas</a></li>
+                                <li><a href="{{path('enterprise_index')}}">Ver Empresas</a></li>
+                                <li><a href="{{path('enterprise_new')}}">Nueva</a></li>
+                                {% if app.session.get('enterprise') is not null %}
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path('enterprise_show', { 'id': app.session.get('enterprise').id }) }}">Ver {{app.session.get('enterprise').name}}</a></li>
+                                    <li><a href="{{ path('exit_enterprise') }}">Salir de {{app.session.get('enterprise').name}}</a></li>
+                                {% endif %}
                             </ul>
                         </li>
+                        {% if app.session.get('enterprise') is not null %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Cuentas 
+                                <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{path('accountl1_index')}}">Ver Cuentas</a></li>
+                                    <li><a href="{{path('accountl1_new')}}">Nueva Cuenta Nivel 1</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
                     {% endif %}
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         {% if is_granted(['IS_AUTHENTICATED_FULLY', 'IS_AUTHENTICATED_REMEMBERED']) %}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-{{app.user.profile.icon}}" aria-hidden="true"></span> {{ app.user.name }} {{ app.user.lastname }} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path('user_show', { 'id': app.user.id }) }}">Mi Perfil</a></li>
-                                <li><a href="{{path('logout')}}">Logout</a></li>
-                            </ul>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.name }} {{ app.user.lastname }} <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('user_show', { 'id': app.user.id }) }}">Mi Perfil</a></li>
+                                    <li><a href="{{path('logout')}}">Logout</a></li>
+                                </ul>
+                            </li>
                         {% else %}
                             <li><a href="{{path('login_route')}}">Log in</a></li> / <li><a href="{{path('signUp_route')}}">Sing up</a></li>
                         {% endif %}

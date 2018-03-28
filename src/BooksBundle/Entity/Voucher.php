@@ -23,16 +23,16 @@ class Voucher
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="state", type="integer")
+     * @ORM\Column(name="state", type="string", length=15)
      */
     private $state;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\Column(name="type", type="string", length=15)
      */
     private $type;
 
@@ -81,7 +81,7 @@ class Voucher
     /**
      * Set state
      *
-     * @param integer $state
+     * @param string $state
      * @return Voucher
      */
     public function setState($state)
@@ -94,7 +94,7 @@ class Voucher
     /**
      * Get state
      *
-     * @return integer 
+     * @return string 
      */
     public function getState()
     {
@@ -104,7 +104,7 @@ class Voucher
     /**
      * Set type
      *
-     * @param integer $type
+     * @param string $type
      * @return Voucher
      */
     public function setType($type)
@@ -117,7 +117,7 @@ class Voucher
     /**
      * Get type
      *
-     * @return integer 
+     * @return string 
      */
     public function getType()
     {

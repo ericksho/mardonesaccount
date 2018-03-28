@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Accountl2</h1>
+    <h1>Cuenta nivel 2</h1>
 
-    <table>
+    <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ accountL2.id }}</td>
+                <th>Cuenta N1</th>
+                <td>{{ accountL2.accountL1.name }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nombre</th>
                 <td>{{ accountL2.name }}</td>
             </tr>
             <tr>
-                <th>Code</th>
+                <th>Código</th>
                 <td>{{ accountL2.code }}</td>
             </tr>
         </tbody>

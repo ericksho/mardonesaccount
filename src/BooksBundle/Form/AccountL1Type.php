@@ -17,13 +17,13 @@ class AccountL1Type extends AbstractType
         $builder
             ->add('name',null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
             ->add('code', null,array('label' => 'Código','attr' => array('class'=>'form-control')))
-            ->add('enterprise', EntityType::class, array(
-                        'label' => 'Empresa',
-                        'required' => false,
-                        'class' => 'BooksBundle:Enterprise',
-                        'multiple' => false,
-                        'attr' => array('class'=>'js-basic-single'),
-                        'choice_label' => 'name',))
+            #->add('enterprise', EntityType::class, array(
+            #            'label' => 'Empresa',
+            #            'required' => false,
+            #            'class' => 'BooksBundle:Enterprise',
+            #            'multiple' => false,
+            #            'attr' => array('class'=>'js-basic-single'),
+            #            'choice_label' => 'name',))
 
         ;
     }

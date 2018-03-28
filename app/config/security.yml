@@ -15,11 +15,6 @@ security:
                 # manager_name: customer
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
         main:
             pattern:    ^/
             http_basic: ~
@@ -32,7 +27,6 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login_check
-            switch_user: {role: ROLE_ADMIN, parameter: impersonate}
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -41,10 +35,3 @@ security:
         #- { path: ^/user/new$, roles: ROLE_ADMIN }
         #- { path: ^/user/$, roles: ROLE_ADMIN }
         #- { path: ^/user/, roles: ROLE_USER }
-        - { path: ^/interest, roles: ROLE_ADMIN }
-        - { path: ^/invitation, roles: ROLE_USER }
-        - { path: ^/message, roles: ROLE_USER }
-        - { path: ^/petition, roles: ROLE_USER }
-        - { path: ^/profile, roles: ROLE_ADMIN }
-        - { path: ^/team/$, roles: ROLE_ADMIN }
-        - { path: ^/team, roles: ROLE_USER }
