@@ -4,9 +4,12 @@ namespace BooksBundle\Controller;
 
 use BooksBundle\Entity\Voucher;
 use BooksBundle\Entity\AccountL3;
+use BooksBundle\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Voucher controller.
@@ -93,12 +96,37 @@ class VoucherController extends Controller
      */
     public function editAction(Request $request, Voucher $voucher)
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($voucher);
         $editForm = $this->createForm('BooksBundle\Form\VoucherType', $voucher);
         $editForm->handleRequest($request);
 
+        $originalItems = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Items objects in the database
+        foreach ($voucher->getItems() as $item) {
+            $originalItems->add($item);
+        }
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            // remove the relationship between the item and the Task
+            foreach ($originalItems as $item) {
+                if (false === $voucher->getItems()->contains($item)) {
+                    // remove the Voucher from the item
+                    $item->getVoucher()->removeElement($voucher);
+
+                    //if it was a many-to-one relationship, remove the relationship like this
+                    $item->setVoucher(null);
+
+                    $entityManager->persist($item);
+
+                    // if you wanted to delete the item entirely, you can also do that
+                    $entityManager->remove($item);
+                }
+            }
+
+            $entityManager->persist($voucher);
+            $entityManager->flush();
 
             return $this->redirectToRoute('voucher_edit', array('id' => $voucher->getId()));
         }

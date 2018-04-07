@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class VoucherType extends AbstractType
 {
@@ -28,6 +29,11 @@ class VoucherType extends AbstractType
                 ),'label' => 'Tipo','attr' => array('class'=>'js-basic-single')))
             ->add('number', null,array('label' => 'Número','attr' => array('class'=>'form-control')))
             ->add('date', 'date', array('widget' => 'single_text', 'attr' => array('class'=>'form-control right-column-form'), 'label' => 'Fecha'))
+            ->add('items', CollectionType::class, array(
+                'entry_type' => ItemType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,))
         ;
     }
     

@@ -21,6 +21,10 @@
                 <th>Fecha</th>
                 <td>{% if voucher.date %}{{ voucher.date|date('d-m-Y') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th>n items</th>
+                <td>{{ voucher.items|length }}</td>
+            </tr>
         </tbody>
     </table>
 

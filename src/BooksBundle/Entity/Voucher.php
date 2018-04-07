@@ -59,7 +59,7 @@ class Voucher
 
     /**
      * One Voucher has Many Items
-     * @ORM\OneToMany(targetEntity="Item", mappedBy="voucher")
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="voucher",cascade={"persist"})
      */
     private $items;
 
@@ -203,6 +203,8 @@ class Voucher
     {
         $this->items[] = $items;
 
+        $items->setVoucher($this);
+
         return $this;
     }
 
@@ -213,6 +215,7 @@ class Voucher
      */
     public function removeItem(\BooksBundle\Entity\Item $items)
     {
+        $items->setVoucher(null);
         $this->items->removeElement($items);
     }
 
