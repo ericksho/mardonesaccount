@@ -62,15 +62,26 @@ class VoucherController extends Controller
      * Finds and displays a voucher entity.
      *
      * @Route("/{id}", name="voucher_show")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function showAction(Voucher $voucher)
+    public function showAction(Request $request, Voucher $voucher)
     {
         $deleteForm = $this->createDeleteForm($voucher);
+
+        $itemForm = $this->createForm('BooksBundle\Form\MultiItemType', $voucher);
+        $itemForm->handleRequest($request);
+
+        if ($itemForm->isSubmitted() && $itemForm->isValid()) 
+        {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('voucher_edit', array('id' => $voucher->getId()));
+        }
 
         return $this->render('voucher/show.html.twig', array(
             'voucher' => $voucher,
             'delete_form' => $deleteForm->createView(),
+            'itemForm' => $itemForm->createView()
         ));
     }
 
