@@ -5,6 +5,7 @@ namespace BooksBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ItemType extends AbstractType
 {
@@ -14,10 +15,10 @@ class ItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number')
-            ->add('credit')
-            ->add('debit')
-            ->add('documentNumber')
+            ->add('number',IntegerType::class,array('label'=>false))
+            ->add('credit',IntegerType::class,array('label'=>false))
+            ->add('debit',IntegerType::class,array('label'=>false))
+            ->add('documentNumber',IntegerType::class,array('label'=>false))
         ;
     }
     

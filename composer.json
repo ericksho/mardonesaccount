@@ -21,13 +21,14 @@
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/orm": "^2.4.8",
         "incenteev/composer-parameter-handler": "~2.0",
+        "ninsuo/symfony-collection": "^2.1",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/symfony": "2.8.*",
-        "twig/twig": "^1.0||^2.0",
-        "twbs/bootstrap": "^3.3"
+        "twbs/bootstrap": "^3.3",
+        "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
@@ -44,11 +45,13 @@
         ],
         "post-install-cmd": [
             "@symfony-scripts",
-            "php -r \"if (!file_exists('web/bundles/bootstrap/')){  symlink(__DIR__.'/vendor/twbs/bootstrap/dist', 'web/bundles/bootstrap');}\""
+            "php -r \"if (!file_exists('web/bundles/bootstrap/')){  symlink(__DIR__.'/vendor/twbs/bootstrap/dist', 'web/bundles/bootstrap');}\"",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postInstall"
         ],
         "post-update-cmd": [
             "@symfony-scripts",
-            "php -r \"if (!file_exists('web/bundles/bootstrap/')){  symlink(__DIR__.'/vendor/twbs/bootstrap/dist', 'web/bundles/bootstrap');}\""
+            "php -r \"if (!file_exists('web/bundles/bootstrap/')){  symlink(__DIR__.'/vendor/twbs/bootstrap/dist', 'web/bundles/bootstrap');}\"",
+            "Fuz\\Symfony\\Collection\\ScriptHandler::postUpdate"
         ]
     },
     "config": {

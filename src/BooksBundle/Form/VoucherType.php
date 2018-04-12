@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class VoucherType extends AbstractType
 {
@@ -30,10 +31,19 @@ class VoucherType extends AbstractType
             ->add('number', null,array('label' => 'Número','attr' => array('class'=>'form-control')))
             ->add('date', 'date', array('widget' => 'single_text', 'attr' => array('class'=>'form-control right-column-form'), 'label' => 'Fecha'))
             ->add('items', CollectionType::class, array(
-                'entry_type' => ItemType::class,
+                'entry_type' => ItemType::class,    
+                'entry_options' => array(
+                    'attr' => array(
+                        'class' => 'item', // we want to use 'tr.item' as collection elements' selector
+                    ),),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false,))
+                'prototype'    => true,
+                'required'     => false,
+                'by_reference' => true,
+                'delete_empty' => true,
+                'attr' => array('class'=>'table discount-collection')))
+            ->add('save', SubmitType::class, ['label' => 'Guardar'])
         ;
     }
     
