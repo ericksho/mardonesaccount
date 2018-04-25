@@ -14,24 +14,23 @@
         {{ form_widget(edit_form.date) }}
         {{ form_label(edit_form.items) }}
         <ul class="items" data-prototype="{{ form_widget(edit_form.items.vars.prototype)|e('html_attr') }}">
+            <li style="display:inline-flex;">
+                <div class="head">Item</div>
+                <div class="head">Haber</div>
+                <div class="head">Debe</div>
+                <div class="head">Número Documento</div>
+            </li>
             {# iterate over each existing tag and render its only field: name #}
             {% for item in edit_form.items %}
-                <li>{{ form_row(item.number) }}</li>
+                <li style="display:inline-flex;">{{ form_row(item.number) }}{{ form_row(item.credit) }}{{ form_row(item.debit) }}{{ form_row(item.documentNumber) }}</li>
             {% endfor %}
         </ul>
-        <input type="submit" value="Guardar" />
+        <input type="submit" class="btn btn-success" value="Guardar" />
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('voucher_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    
+    {{ form_start(delete_form) }}
+        <input type="submit" class="btn btn-danger" value="Eliminar">
+    {{ form_end(delete_form) }}
 
     <script type="text/javascript">
         window.onload = function() {
@@ -40,13 +39,20 @@
                 allowClear: false,
                 width: '100%'
             });        
+
+            styleForms();
+
+            //solo funciona si hay almenos un item
+            $('.head').css('width',parseInt($('[id^=booksbundle_voucher_items_]').css('width'),10)+5);
+            $('.head').css('text-align', 'center');
+            $('.head').parent().find('a').remove();
         };
         
         var $collectionHolder;
 
         // setup an "add a item" link
-        var $addItemLink = $('<a href="#" class="add_item_link">Add a item</a>');
-        var $newLinkLi = $('<li></li>').append($addItemLink);
+        var $addItemLink = $('<a href="#" class="add_item_link btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>');
+        var $newLinkLi = $('<li style="display:inline-flex;"></li>').append($addItemLink);
 
         jQuery(document).ready(function() {
             // Get the ul that holds the collection of items
@@ -95,15 +101,17 @@
             $collectionHolder.data('index', index + 1);
 
             // Display the form in the page in an li, before the "Add a item" link li
-            var $newFormLi = $('<li></li>').append(newForm);
+            var $newFormLi = $('<li style="display:inline-flex;"></li>').append(newForm);
             $newLinkLi.before($newFormLi);
 
             // add a delete link to the new form
             addTagFormDeleteLink($newFormLi);
+
+            styleForms();
         }
 
         function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormA = $('<a href="#">delete this tag</a>');
+            var $removeFormA = $('<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>');
             $tagFormLi.append($removeFormA);
 
             $removeFormA.on('click', function(e) {
@@ -114,6 +122,14 @@
                 $tagFormLi.remove();
             });
         }
+
+        function styleForms()
+        {
+            $('[id^=booksbundle_voucher_items_]').css('display','inline-flex');
+            $('li').css('padding-bottom','5px')
+            $('[id^=booksbundle_voucher_items_]').parent().css('padding-right','5px');
+        }
+
     </script>
 
 {% endblock %}

@@ -3,9 +3,24 @@
 {% block body %}
     <h1>Ingresar Voucher</h1>
 
-    {% form_theme form 'voucher/form-theme.html.twig' %}
-
-    {{ form(form) }}
+    {{ form_start(form) }}
+        {{ form_label(form.state) }}
+        {{ form_widget(form.state) }}
+        {{ form_label(form.type) }}
+        {{ form_widget(form.type) }}
+        {{ form_label(form.number) }}
+        {{ form_widget(form.number) }}
+        {{ form_label(form.date) }}
+        {{ form_widget(form.date) }}
+        {{ form_label(form.items) }}
+        <ul class="items" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
+            {# iterate over each existing tag and render its only field: name #}
+            {% for item in form.items %}
+                <li>{{ form_row(item.number) }}</li>
+            {% endfor %}
+        </ul>
+        <input type="submit" value="Crear" />
+    {{ form_end(form) }}
 
     <ul>
         <li>
@@ -20,18 +35,6 @@
                 allowClear: false,
                 width: '100%'
             });        
-
-            $('.discount-collection').collection({
-                allow_duplicate: true,
-                allow_up: false,
-                allow_down: false,
-                add: '<a href="#" class="btn btn-default" title="Add element"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-
-                // here is the magic!
-                elements_selector: 'tr.item',
-                elements_parent_selector: '%id% tbody'
-            });
-
         };
         
         var $collectionHolder;
@@ -114,6 +117,5 @@
     {{ parent() }}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
-    <script src="{{ asset('js/jquery.collection.js') }}"></script>
         
 {% endblock %}
