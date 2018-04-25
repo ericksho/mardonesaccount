@@ -14,7 +14,6 @@ class ItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number',null, array('label'=>false, 'attr' => array('class'=>'form-control')))
             ->add('credit',null, array('label'=>false, 'attr' => array('class'=>'form-control')))
             ->add('debit',null, array('label'=>false, 'attr' => array('class'=>'form-control')))
             ->add('documentNumber',null, array('label'=>false, 'attr' => array('class'=>'form-control')))

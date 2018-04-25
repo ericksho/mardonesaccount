@@ -24,13 +24,6 @@ class Item
     /**
      * @var int
      *
-     * @ORM\Column(name="number", type="integer")
-     */
-    private $number;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="credit", type="integer")
      */
     private $credit;
