@@ -48,11 +48,12 @@ class VoucherController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $voucher->setAccountL3($accountL3);
             $em = $this->getDoctrine()->getManager();
             $em->persist($voucher);
             $em->flush();
 
-            return $this->redirectToRoute('voucher_show', array('id' => $voucher->getId()));
+            return $this->redirectToRoute('voucher_edit', array('id' => $voucher->getId()));
         }
 
         return $this->render('voucher/new.html.twig', array(

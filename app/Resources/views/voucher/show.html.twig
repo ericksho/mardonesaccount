@@ -48,7 +48,6 @@
         <ul class="item">
             {# iterate over each existing item and render its only field: name #}
             {% for item in itemForm.items %}
-                <li>{{ form_row(item.number) }}</li>
                 <li>{{ form_row(item.credit) }}</li>
                 <li>{{ form_row(item.debit) }}</li>
                 <li>{{ form_row(item.documentNumber) }}</li>

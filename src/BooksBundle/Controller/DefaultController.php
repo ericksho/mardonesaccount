@@ -15,11 +15,13 @@ class DefaultController extends Controller
     	$setted_enterprise = null;
     	if(!is_null($this->get('session')->get('enterprise')))
     	{
-    		$setted_enterprise = $this->get('session')->get('enterprise');
+    	   return $this->redirectToRoute('enterprise_index');
     	}
-        return $this->render('BooksBundle:Default:index.html.twig', array(
-        	'setted_enterprise'=>$setted_enterprise
-        	));
+        else
+        {
+            return $this->redirectToRoute('enterprise_index');
+        }
+        return $this->render('BooksBundle:Default:index.html.twig');
     }
 
     /**

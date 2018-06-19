@@ -144,8 +144,6 @@ class EnterpriseController extends Controller
     {
         $this->get('session')->set('enterprise', $enterprise);
 
-        //$this->get('session')->get('loginUserId');
-
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('accountl1_index');
     }
 }

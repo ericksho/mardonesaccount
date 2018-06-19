@@ -24,108 +24,10 @@
                 <li>{{ form_row(item.credit) }}{{ form_row(item.debit) }}{{ form_row(item.documentNumber) }}</li>
             {% endfor %}
         </ol>
-        <input type="submit" class="btn btn-success" value="Crear" />
+        <input type="submit" class="btn btn-success" value="Crear"/>
     {{ form_end(form) }}
 
     <a href="{{ path('voucher_index') }}" class="btn btn-info">Ver Vouchers</a>
-    
-    <script type="text/javascript">
-        
-        var $collectionHolder;
-
-        // setup an "add a item" link
-        var $addItemLink = $('<a href="#" class="add_item_link btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>');
-        var $newLinkLi = $('<li style="display:inline-flex;"></li>').append($addItemLink);
-
-        jQuery(document).ready(function() {
-            // Get the ul that holds the collection of items
-            $collectionHolder = $('ol.items');
-
-            // add a delete link to all of the existing tag form li elements
-            $collectionHolder.find('li').each(function() {
-                addTagFormDeleteLink($(this));
-            });
-
-            // add the "add a item" anchor and li to the items ul
-            $collectionHolder.append($newLinkLi);
-
-            // count the current form inputs we have (e.g. 2), use that as the new
-            // index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-            $addItemLink.on('click', function(e) {
-                // prevent the link from creating a "#" on the URL
-                e.preventDefault();
-
-                // add a new item form (see next code block)
-                addItemForm($collectionHolder, $newLinkLi);
-            });
-
-            $(".js-basic-single").select2({
-                allowClear: false,
-                width: '100%'
-            });        
-
-            $addItemLink.trigger('click');
-
-            //solo funciona si hay almenos un item
-            $('.head').css('width',parseInt($('#booksbundle_voucher_items_0_credit').parent().css('width'),10)+5);
-            $('.head').css('text-align', 'center');
-            $('.head').parent().find('a').remove();
-        });
-
-        function addItemForm($collectionHolder, $newLinkLi) 
-        {
-            // Get the data-prototype explained earlier
-            var prototype = $collectionHolder.data('prototype');
-
-            // get the new index
-            var index = $collectionHolder.data('index');
-
-            var newForm = prototype;
-            // You need this only if you didn't set 'label' => false in your items field in VoucherType
-            // Replace '__name__label__' in the prototype's HTML to
-            // instead be a number based on how many items we have
-            // newForm = newForm.replace(/__name__label__/g, index);
-
-            // Replace '__name__' in the prototype's HTML to
-            // instead be a number based on how many items we have
-            newForm = newForm.replace(/__name__/g, index);
-
-            // increase the index with one for the next item
-            $collectionHolder.data('index', index + 1);
-
-            // Display the form in the page in an li, before the "Add a item" link li
-            var $newFormLi = $('<li></li>').append(newForm);
-            $newLinkLi.before($newFormLi);
-
-            // add a delete link to the new form
-            addTagFormDeleteLink($newFormLi);
-
-            styleForms();
-        }
-
-        function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormA = $('<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>');
-            $tagFormLi.append($removeFormA);
-
-            $removeFormA.on('click', function(e) {
-                // prevent the link from creating a "#" on the URL
-                e.preventDefault();
-
-                // remove the li for the tag form
-                $tagFormLi.remove();
-            });
-        }
-
-        function styleForms()
-        {
-            $('[id^=booksbundle_voucher_items_]').css('display','inline-flex');
-            $('li').css('padding-bottom','5px')
-            $('[id^=booksbundle_voucher_items_]').parent().css('padding-right','5px');
-        }
-
-    </script>
 
 {% endblock %}
 
@@ -133,5 +35,6 @@
     {{ parent() }}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+    <script src="{{ asset('js/itemCollection.js') }}"></script>
         
 {% endblock %}
