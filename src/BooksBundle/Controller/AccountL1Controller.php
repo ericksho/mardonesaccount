@@ -22,9 +22,23 @@ class AccountL1Controller extends Controller
      */
     public function indexAction()
     {
+        if(is_null($this->get('session')->get('enterprise')))
+        {
+            $this->addFlash(
+                'notice',
+                array(
+                    'alert' => 'warning',// danger, warning, info, success
+                    'title' => 'Sin Empresa: ',
+                    'message' => 'Debe seleccionar la empresa con la que va a trabajar primero'
+                )
+            );
+
+            return $this->redirectToRoute('enterprise_show');
+        }
+
         $em = $this->getDoctrine()->getManager();
 
-        $accountL1s = $em->getRepository('BooksBundle:AccountL1')->findAll();
+        $accountL1s = $em->getRepository('BooksBundle:AccountL1')->findByEnterprise($this->get('session')->get('enterprise'));
 
         return $this->render('accountl1/index.html.twig', array(
             'accountL1s' => $accountL1s,
