@@ -129,7 +129,17 @@ class VoucherController extends Controller
             $entityManager->persist($voucher);
             $entityManager->flush();
 
-            return $this->redirectToRoute('voucher_edit', array('id' => $voucher->getId()));
+            $this->addFlash(
+                'notice',
+                array(
+                    'alert' => 'success',// danger, warning, info, success
+                    'title' => 'Edición correcta: ',
+                    'message' => 'Se ha editado correctamente el voucher'.$voucher->getNumber()
+                )
+            );
+
+            //return $this->redirectToRoute('voucher_edit', array('id' => $voucher->getId()));
+            return $this->redirectToRoute('accountl1_index');
         }
 
         return $this->render('voucher/edit.html.twig', array(

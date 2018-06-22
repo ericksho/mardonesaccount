@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ReportController extends Controller
 {
     /**
-     * @Route("/minor")
+     * @Route("/minor", name="minor_book")
      */
     public function minorAction()
     {
@@ -28,6 +28,13 @@ class ReportController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $searchForm = $this->createFormBuilder()
+            ->add('from', DateType::class, array('widget' => 'single_text', 'attr' => array('class'=>'form-control'), 'label' => 'Creado después del', 'required' => false,))
+            ->add('until', DateType::class, array('widget' => 'single_text', 'attr' => array('class'=>'form-control'), 'label' => 'Creado antes del', 'required' => false,))
+            ->add('state', null,array('label' => 'Nombre','attr' => array('class'=>'form-control', 'placeholder' => 'Nombre de la Oportunidad',), 'required' => false))
+            ->add('submit', SubmitType::class, array('label' => 'Buscar', 'attr' => array('class'=>"btn btn-default")))
+            ->getForm();
+
         $accountL1s = $em->getRepository('BooksBundle:AccountL1')->findByEnterprise($this->get('session')->get('enterprise'));
 
         return $this->render('BooksBundle:Report:minor.html.twig', array(
@@ -36,7 +43,7 @@ class ReportController extends Controller
     }
 
     /**
-     * @Route("/mayor")
+     * @Route("/mayor", name="mayor_book")
      */
     public function mayorAction()
     {
