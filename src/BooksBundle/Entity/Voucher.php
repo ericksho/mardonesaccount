@@ -229,6 +229,28 @@ class Voucher
         return $this->items;
     }
 
+    public function getDebit()
+    {
+        $debit = 0;
+        foreach ($this->items as $item) 
+        {
+            $debit += $item->getDebit();
+        }
+
+        return $debit;
+    }
+
+    public function getCredit()
+    {
+        $credit = 0;
+        foreach ($this->items as $item) 
+        {
+            $credit += $item->getCredit();
+        }
+
+        return $credit;
+    }
+
     public function fitMinorFilter($state, $date1, $date2)
     {
         if($this->state == $state && $this->date >= $date1 && $this->date <= $date2)

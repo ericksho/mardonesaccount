@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class VoucherRepository extends EntityRepository
 {
+	public function findByForm($enterprise, $data)
+	{
+		$query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT v FROM BooksBundle:Voucher v
+                INNER JOIN v.accountL3 a3
+                INNER JOIN a3.accountL2 a2
+                INNER JOIN a2.accountL1 a1
+                WHERE a1.enterprise = :enterprise
+                AND v.state = :state
+                AND v.date >= :date1
+                AND v.date <= :date2
+                '
+            )->setParameters(array('enterprise'=>$enterprise->getId(),'state'=>$data['state'],'date1'=>$data['from'],'date2'=>$data['until']));
+     
+        try {
+            return $query->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+	}
 }

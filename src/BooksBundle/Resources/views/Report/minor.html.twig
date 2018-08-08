@@ -10,43 +10,22 @@
     <table class="table table-stiped">
         <thead>
             <tr>
-                <th>Código</th>
+                <th>Fecha</th>
                 <th>Nombre</th>
-                <th>Vouchers</th>
+                <th>Tipo</th>
+                <th>Haber</th>
+                <th>Debe</th>
             </tr>
         </thead>
         <tbody>
-        {% for accountL1 in accountL1s %}
+        {% for voucher in vouchers %}
             <tr>
-                <td>{{ accountL1.codeString }}-00-00</td>
-                <td>{{ accountL1.name }}</td>
-                <td></td>
+                <td>{{ voucher.date|date('d-m-Y') }}</td>
+                <td>{{ voucher.number }}</td>
+                <td>{{ voucher.type }}</td>
+                <td>{{ voucher.getCredit }}</td>
+                <td>{{ voucher.getDebit }}</td>
             <tr>
-            {% for accountL2 in accountL1.accountsL2 %}
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ accountL1.codeString }}-{{ accountL2.codeString }}-00</td>
-                    <td>{{ accountL2.name }}</td>
-                    <td></td>
-                </tr>
-                {% for accountL3 in accountL2.accountsL3 %}
-                    <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ accountL1.codeString }}-{{ accountL2.codeString }}-{{ accountL3.codeString }}</td>
-                        <td>{{ accountL3.name }}</td>
-                        <td><ul>
-                            {% for voucher in accountL3.vouchers %}
-                                <li>
-                                    <a href="{{ path('voucher_edit', { 'id': voucher.id }) }}" class="btn btn-default btn-xs">{{voucher.number}}</a>
-                                    {% for item in voucher.items %}
-                                        <ul>
-                                            
-                                        </ul>
-                                    {% endfor %}
-                                </li>
-                            {% endfor %}
-                        </ul></td>
-                    </tr>
-                {% endfor %}
-            {% endfor %}
         {% endfor %}
         </tbody>
     </table>
