@@ -47,19 +47,25 @@ class ReportController extends Controller
             ->getForm();
 
         $searchForm->handleRequest($request);
+        $from = '';
+        $until = '';
 
         $vouchers = $em->getRepository('BooksBundle:Voucher')->findByEnterprise($this->get('session')->get('enterprise'));
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) 
         {
             $data = $searchForm->getData();
+            $from = $data['from'];
+            $until = $data['until'];
             
             $vouchers = $em->getRepository('BooksBundle:Voucher')->findByForm($this->get('session')->get('enterprise'), $data);
         }
 
         return $this->render('BooksBundle:Report:minor.html.twig', array(
             'vouchers' => $vouchers,
-            'searchForm' => $searchForm->createView()
+            'searchForm' => $searchForm->createView(),
+            'from' => $from,
+            'until' => $until
         ));
     }
 

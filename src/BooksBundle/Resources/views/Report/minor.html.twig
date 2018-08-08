@@ -4,6 +4,23 @@
     <button class="btn btn-default" style="float:right" onclick="printReady()" type="submit"><span class="glyphicon glyphicon-print"></span></button> 
 <h1>Libro Menor</h1> 
 
+    <table class="table" >
+        <tbody>
+            <tr>
+                <th>Empresa</th>
+                <td>{{ app.session.get('enterprise').name }}</td>
+            </tr>
+            <tr>
+                <th>Desde</th>
+                <td>{{from|date('d-m-Y')}}</div></td>
+            </tr>
+            <tr>
+                <th>Hasta</th>
+                <td>{{until|date('d-m-Y')}}</td>
+            </tr>
+        </tbody>
+    </table>
+
 	{{ form_start(searchForm) }}
         {{ form_widget(searchForm) }}
     {{ form_end(searchForm) }}
