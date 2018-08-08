@@ -228,4 +228,9 @@ class Voucher
     {
         return $this->items;
     }
+
+    public function fitMinorFilter($state, $date1, $date2)
+    {
+        if($this)
+    }
 }
