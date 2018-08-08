@@ -53,7 +53,43 @@ class ReportController extends Controller
         if ($searchForm->isSubmitted() && $searchForm->isValid()) 
         {
             $data = $searchForm->getData();
+            
             $accountL1s = $em->getRepository('BooksBundle:AccountL1')->findByForm($this->get('session')->get('enterprise'), $data);
+
+            $state = $data['state'];
+            $date1 = $data['from'];
+            $date2 = $data['until'];
+
+            foreach ($accountL1s as $al1) 
+            {
+                foreach ($al1->getAccountsL2() as $al2) 
+                {
+                    if(!$al2->fitMinorFilter($state, $date1, $date2))
+                    {
+                        $al1->removeAccountsL2($al2);
+                    }
+                    else
+                    {
+                        foreach ($al2->getAccountsL3() as $al3) 
+                        {
+                            if(!$al3->fitMinorFilter($state, $date1, $date2))
+                            {
+                                $al2->removeAccountsL3($al3);
+                            }
+                            else
+                            {
+                                foreach ($al3->getVouchers() as $v) 
+                                {
+                                    if(!$v->fitMinorFilter($state, $date1, $date2))
+                                    {
+                                        $al3->removeVoucher($v);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         return $this->render('BooksBundle:Report:minor.html.twig', array(

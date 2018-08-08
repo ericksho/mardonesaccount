@@ -174,4 +174,14 @@ class AccountL3
     {
         return $this->vouchers;
     }
+
+    public function fitMinorFilter($state, $date1, $date2)
+    {
+        foreach ($this->vouchers as $voucher)
+        {
+            if($voucher->fitMinorFilter($state, $date1, $date2))
+                return true;
+        }
+        return false;
+    }
 }

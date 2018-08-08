@@ -231,6 +231,10 @@ class Voucher
 
     public function fitMinorFilter($state, $date1, $date2)
     {
-        if($this)
+        if($this->state == $state && $this->date >= $date1 && $this->date <= $date2)
+        {
+            return true;
+        }
+        return false;
     }
 }

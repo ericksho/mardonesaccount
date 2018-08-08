@@ -175,4 +175,14 @@ class AccountL2
     {
         return $this->accountsL3;
     }
+
+    public function fitMinorFilter($state, $date1, $date2)
+    {
+        foreach ($this->accountsL3 as $accountL3)
+        {
+            if($accountL3->fitMinorFilter($state, $date1, $date2))
+                return true;
+        }
+        return false;
+    }
 }
