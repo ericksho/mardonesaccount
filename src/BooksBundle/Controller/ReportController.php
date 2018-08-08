@@ -35,8 +35,8 @@ class ReportController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $searchForm = $this->createFormBuilder()
-            ->add('from', DateType::class, array('widget' => 'single_text', 'attr' => array('class'=>'form-control'), 'label' => 'Incluir desde', 'required' => false,))
-            ->add('until', DateType::class, array('widget' => 'single_text', 'attr' => array('class'=>'form-control'), 'label' => 'Incluir hasta', 'required' => false,))
+            ->add('from', DateType::class, array('widget' => 'single_text', 'attr' => array('class'=>'form-control'), 'label' => 'Incluir desde', 'required' => true,))
+            ->add('until', DateType::class, array('widget' => 'single_text', 'attr' => array('class'=>'form-control'), 'label' => 'Incluir hasta', 'required' => true,))
             ->add('state', ChoiceType::class,array('choices'  => array(
                 'Vigente' => 'Vigente',
                 'Nulo' => 'Nulo', 
@@ -48,7 +48,7 @@ class ReportController extends Controller
 
         $searchForm->handleRequest($request);
 
-        $accountL1s = $em->getRepository('BooksBundle:AccountL1')->findByEnterprise($this->get('session')->get('enterprise'));
+        $vouchers = $em->getRepository('BooksBundle:Voucher')->findByEnterprise($this->get('session')->get('enterprise'));
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) 
         {

@@ -120,6 +120,16 @@ class AccountL3
     }
 
     /**
+     * Get code string
+     *
+     * @return integer 
+     */
+    public function getFullCode()
+    {
+        return $this->accountL2->getAccountL1()->getCodeString().'-'.$this->accountL2->getCodeString().'-'.$this->getCodeString();
+    }
+
+    /**
      * Set accountL2
      *
      * @param \BooksBundle\Entity\AccountL2 $accountL2

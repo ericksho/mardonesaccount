@@ -259,4 +259,14 @@ class Voucher
         }
         return false;
     }
+
+    public function getFullCode()
+    {
+        return $this->accountL3->getFullCode();
+    }
+
+    public function getRowspan()
+    {
+        return count($this->getItems()) + 1;
+    }
 }

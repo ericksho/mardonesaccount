@@ -1,34 +1,59 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<h1>Libro Menor</h1>
+    <button class="btn btn-default" style="float:right" onclick="printReady()" type="submit"><span class="glyphicon glyphicon-print"></span></button> 
+<h1>Libro Menor</h1> 
 
 	{{ form_start(searchForm) }}
         {{ form_widget(searchForm) }}
     {{ form_end(searchForm) }}
-
-    <table class="table table-stiped">
+    <br>
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
+                <th>Número</th>
                 <th>Fecha</th>
-                <th>Nombre</th>
+                <th>Código</th>
+                <th>Cuenta</th>
+                <th>Voucher</th>
                 <th>Tipo</th>
                 <th>Haber</th>
                 <th>Debe</th>
             </tr>
         </thead>
         <tbody>
+        {% set count = 1 %}
         {% for voucher in vouchers %}
             <tr>
-                <td>{{ voucher.date|date('d-m-Y') }}</td>
-                <td>{{ voucher.number }}</td>
-                <td>{{ voucher.type }}</td>
-                <td>{{ voucher.getCredit }}</td>
-                <td>{{ voucher.getDebit }}</td>
+                <td rowspan="{{voucher.getRowspan}}">{{ count }}</td>
+                <td rowspan="{{voucher.getRowspan}}">{{ voucher.date|date('d-m-Y') }}</td>
+                <td rowspan="{{voucher.getRowspan}}">{{ voucher.getFullCode }}</td>
+                <td rowspan="{{voucher.getRowspan}}">{{ voucher.accountL3.name }}</td>
+                <td rowspan="{{voucher.getRowspan}}">{{ voucher.number }}</td>
+                <td rowspan="{{voucher.getRowspan}}">{{ voucher.type }}</td>
+                <td><italic>{{ voucher.getCredit }}</italic></td>
+                <td><italic>{{ voucher.getDebit }}</italic></td>
+                {% for item in voucher.items %}
+                    <tr>
+                        <td>{{ item.credit }}</td>
+                        <td>{{ item.debit }}</td>
+                    </tr>
+                {% endfor %}
             <tr>
+        {% set count = count + 1 %}
         {% endfor %}
         </tbody>
     </table>
+
+    <script type="text/javascript">
+        function printReady() {
+            $('form').hide();
+            window.print();            
+            $('form').show();
+        }
+    </script>
+
+
 
 {% endblock %}
 

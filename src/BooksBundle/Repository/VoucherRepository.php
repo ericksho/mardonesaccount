@@ -33,4 +33,23 @@ class VoucherRepository extends EntityRepository
             return null;
         }
 	}
+
+    public function findByEnterprise($enterprise)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT v FROM BooksBundle:Voucher v
+                INNER JOIN v.accountL3 a3
+                INNER JOIN a3.accountL2 a2
+                INNER JOIN a2.accountL1 a1
+                WHERE a1.enterprise = :enterprise
+                '
+            )->setParameters(array('enterprise'=>$enterprise->getId()));
+     
+        try {
+            return $query->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }
