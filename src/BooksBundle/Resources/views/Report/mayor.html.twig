@@ -1,18 +1,41 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<h1>Libro Menor</h1>
+    <button id="printButton" class="btn btn-default" style="float:right" onclick="printReady()" type="submit"><span class="glyphicon glyphicon-print"></span></button> 
+<h1>Libro Mayor</h1>
+
+    <table class="table" >
+        <tbody>
+            <tr>
+                <th>Empresa</th>
+                <td>{{ app.session.get('enterprise').name }}</td>
+            </tr>
+            <tr>
+                <th>Desde</th>
+                <td>{{from|date('d-m-Y')}}</div></td>
+            </tr>
+            <tr>
+                <th>Hasta</th>
+                <td>{{until|date('d-m-Y')}}</td>
+            </tr>
+        </tbody>
+    </table>
 
 	{{ form_start(searchForm) }}
         {{ form_widget(searchForm) }}
     {{ form_end(searchForm) }}
+    <br>
 
-    <table class="table table-stiped">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Código</th>
                 <th>Nombre</th>
-                <th>Vouchers</th>
+                <th>Voucher</th>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Haber</th>
+                <th>Debe</th>
             </tr>
         </thead>
         <tbody>
@@ -20,41 +43,43 @@
             <tr>
                 <td>{{ accountL1.codeString }}-00-00</td>
                 <td>{{ accountL1.name }}</td>
-                <td></td>
+                <td colspan="5"></td>
             <tr>
             {% for accountL2 in accountL1.accountsL2 %}
                 <tr>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ accountL1.codeString }}-{{ accountL2.codeString }}-00</td>
                     <td>{{ accountL2.name }}</td>
-                    <td></td>
+                    <td colspan="5"></td>
                 </tr>
                 {% for accountL3 in accountL2.accountsL3 %}
                     <tr>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ accountL1.codeString }}-{{ accountL2.codeString }}-{{ accountL3.codeString }}</td>
-                        <td>{{ accountL3.name }}</td>
-                        <td><ul>
-                            {% for voucher in accountL3.vouchers %}
-                                <li>
-                                    <a href="{{ path('voucher_edit', { 'id': voucher.id }) }}" class="btn btn-default btn-xs">{{voucher.number}}</a>
-                                    -{{voucher.type}}
-                                    -{{voucher.date|date('d-m-Y')}}
-
-                                    <ul>
-                                        {% for item in voucher.items %}
-                                            <li>
-                                                {{ item.documentNumber }} - {{ item.credit }} - {{ item.debit }}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                            {% endfor %}
-                        </ul></td>
+                        <td rowspan="{{accountL3.getRowspan}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ accountL1.codeString }}-{{ accountL2.codeString }}-{{ accountL3.codeString }}</td>
+                        <td rowspan="{{accountL3.getRowspan}}">{{ accountL3.name }}</td>
+                        {% for voucher in accountL3.vouchers %}
+                            <tr>
+                                <td>{{voucher.number}}</td>
+                                <td>{{voucher.type}}</td>
+                                <td>{{voucher.date|date('d-m-Y')}}</td>
+                                <td>{{voucher.getCredit}}</td>
+                                <td>{{voucher.getDebit}}</td>
+                            </tr>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             {% endfor %}
         {% endfor %}
         </tbody>
     </table>
+
+    <script type="text/javascript">
+        function printReady() {
+            $('form').hide();
+            $('#printButton').hide();
+            window.print();          
+            $('form').show();
+            $('#printButton').show();
+        }
+    </script>
 
 {% endblock %}
 

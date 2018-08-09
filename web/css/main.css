@@ -1,6 +1,8 @@
 html {
     display: table;
     margin: auto;
+    background: url("../images/books.png")  no-repeat right bottom fixed;
+    background-size: 200px;
 }
 
 header {

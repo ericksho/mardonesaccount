@@ -194,4 +194,16 @@ class AccountL3
         }
         return false;
     }
+
+    public function getRowspan()
+    {
+        $rowspan = 1;
+
+        foreach ($this->vouchers as $voucher) 
+        {
+            $rowspan += $voucher->getRowspan();
+        }
+
+        return $rowspan;
+    }
 }

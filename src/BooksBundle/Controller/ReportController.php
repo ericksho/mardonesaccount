@@ -71,8 +71,9 @@ class ReportController extends Controller
 
     /**
      * @Route("/mayor", name="mayor_book")
+     * @Method({"GET", "POST"})
      */
-    public function mayorAction()
+    public function mayorAction(Request $request)
     {
         if(is_null($this->get('session')->get('enterprise')))
         {
@@ -106,6 +107,9 @@ class ReportController extends Controller
 
         $accountL1s = $em->getRepository('BooksBundle:AccountL1')->findByEnterprise($this->get('session')->get('enterprise'));
 
+        $from = '';
+        $until = '';
+
         if ($searchForm->isSubmitted() && $searchForm->isValid()) 
         {
             $data = $searchForm->getData();
@@ -113,14 +117,14 @@ class ReportController extends Controller
             $accountL1s = $em->getRepository('BooksBundle:AccountL1')->findByForm($this->get('session')->get('enterprise'), $data);
 
             $state = $data['state'];
-            $date1 = $data['from'];
-            $date2 = $data['until'];
+            $from = $data['from'];
+            $until = $data['until'];
 
             foreach ($accountL1s as $al1) 
             {
                 foreach ($al1->getAccountsL2() as $al2) 
                 {
-                    if(!$al2->fitMinorFilter($state, $date1, $date2))
+                    if(!$al2->fitMinorFilter($state, $from, $until))
                     {
                         $al1->removeAccountsL2($al2);
                     }
@@ -128,7 +132,7 @@ class ReportController extends Controller
                     {
                         foreach ($al2->getAccountsL3() as $al3) 
                         {
-                            if(!$al3->fitMinorFilter($state, $date1, $date2))
+                            if(!$al3->fitMinorFilter($state, $from, $until))
                             {
                                 $al2->removeAccountsL3($al3);
                             }
@@ -136,7 +140,7 @@ class ReportController extends Controller
                             {
                                 foreach ($al3->getVouchers() as $v) 
                                 {
-                                    if(!$v->fitMinorFilter($state, $date1, $date2))
+                                    if(!$v->fitMinorFilter($state, $from, $until))
                                     {
                                         $al3->removeVoucher($v);
                                     }
@@ -149,7 +153,9 @@ class ReportController extends Controller
         }
         return $this->render('BooksBundle:Report:mayor.html.twig', array(
             'accountL1s' => $accountL1s,
-            'searchForm' => $searchForm->createView()
+            'searchForm' => $searchForm->createView(),
+            'from' => $from,
+            'until' => $until
         ));
     }
 

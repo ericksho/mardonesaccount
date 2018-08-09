@@ -185,4 +185,16 @@ class AccountL2
         }
         return false;
     }
+
+    public function getRowspan()
+    {
+        $rowspan = 1;
+
+        foreach ($this->accountsL3 as $accountL3) 
+        {
+            $rowspan += $accountL3->getRowspan();
+        }
+
+        return $rowspan;
+    }
 }

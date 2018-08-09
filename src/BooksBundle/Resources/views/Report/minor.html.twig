@@ -1,8 +1,8 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <button class="btn btn-default" style="float:right" onclick="printReady()" type="submit"><span class="glyphicon glyphicon-print"></span></button> 
-<h1>Libro Menor</h1> 
+    <button id="printButton" class="btn btn-default" style="float:right" onclick="printReady()" type="submit"><span class="glyphicon glyphicon-print"></span></button> 
+<h1>Libro Menor</h1>
 
     <table class="table" >
         <tbody>
@@ -65,8 +65,10 @@
     <script type="text/javascript">
         function printReady() {
             $('form').hide();
-            window.print();            
+            $('#printButton').hide();
+            window.print();          
             $('form').show();
+            $('#printButton').show();
         }
     </script>
 
