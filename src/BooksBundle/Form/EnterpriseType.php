@@ -15,6 +15,9 @@ class EnterpriseType extends AbstractType
     {
         $builder
             ->add('name', null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
+            ->add('rut', null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
+            ->add('address', null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
+            ->add('order', null,array('label' => 'Nombre','attr' => array('class'=>'form-control')))
         ;
     }
     

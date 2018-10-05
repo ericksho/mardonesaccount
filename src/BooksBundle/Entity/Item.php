@@ -50,6 +50,13 @@ class Item
     private $voucher;
 
     /**
+     * Many Vouchers have One AccountL3.
+     * @ORM\ManyToOne(targetEntity="AccountL3", inversedBy="items")
+     * @ORM\JoinColumn(name="accountL3_id", referencedColumnName="id")
+     */
+    private $accountL3;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -172,5 +179,28 @@ class Item
     public function getVoucher()
     {
         return $this->voucher;
+    }
+
+    /**
+     * Set accountL3
+     *
+     * @param \BooksBundle\Entity\AccountL3 $accountL3
+     * @return Item
+     */
+    public function setAccountL3(\BooksBundle\Entity\AccountL3 $accountL3 = null)
+    {
+        $this->accountL3 = $accountL3;
+
+        return $this;
+    }
+
+    /**
+     * Get accountL3
+     *
+     * @return \BooksBundle\Entity\AccountL3 
+     */
+    public function getAccountL3()
+    {
+        return $this->accountL3;
     }
 }

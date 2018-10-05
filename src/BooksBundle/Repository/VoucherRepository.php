@@ -39,7 +39,8 @@ class VoucherRepository extends EntityRepository
         $query = $this->getEntityManager()
             ->createQuery(
                 'SELECT v FROM BooksBundle:Voucher v
-                INNER JOIN v.accountL3 a3
+                INNER JOIN v.items i
+                INNER JOIN i.accountL3 a3
                 INNER JOIN a3.accountL2 a2
                 INNER JOIN a2.accountL1 a1
                 WHERE a1.enterprise = :enterprise

@@ -25,9 +25,37 @@ class Enterprise
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=100, unique=true)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rut", type="string", length=12, unique=true)
+     */
+    private $rut;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=100, unique=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order", type="string", length=100, unique=true)
+     */
+    private $order;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="folio", type="integer")
+     */
+    private $folio;
 
     /**
      * One Enterprise has Many accounts.
@@ -37,6 +65,7 @@ class Enterprise
 
     public function __construct() {
         $this->accounts = new ArrayCollection();
+        $this->folio = 1;
     }
 
 
@@ -104,5 +133,97 @@ class Enterprise
     public function getAccounts()
     {
         return $this->accounts;
+    }
+
+    /**
+     * Set folio
+     *
+     * @param integer $folio
+     * @return Enterprise
+     */
+    public function setFolio($folio)
+    {
+        $this->folio = $folio;
+
+        return $this;
+    }
+
+    /**
+     * Get folio
+     *
+     * @return integer 
+     */
+    public function getFolio()
+    {
+        return $this->folio;
+    }
+
+    /**
+     * Set rut
+     *
+     * @param string $rut
+     * @return Enterprise
+     */
+    public function setRut($rut)
+    {
+        $this->rut = $rut;
+
+        return $this;
+    }
+
+    /**
+     * Get rut
+     *
+     * @return string 
+     */
+    public function getRut()
+    {
+        return $this->rut;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Enterprise
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set order
+     *
+     * @param string $order
+     * @return Enterprise
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return string 
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }

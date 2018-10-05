@@ -1,72 +1,94 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <button id="printButton" class="btn btn-default" style="float:right" onclick="printReady()" type="submit"><span class="glyphicon glyphicon-print"></span></button> 
-<h1>Libro Menor</h1>
+    <button id="printButton" class="btn btn-default" style="float:right" onclick="printReady()" type="submit"><span class="glyphicon glyphicon-print"></span></button>
 
-    <table class="table" >
+    <table>
         <tbody>
             <tr>
                 <th>Empresa</th>
+                <td style="padding: 0 5px">:</td>
                 <td>{{ app.session.get('enterprise').name }}</td>
             </tr>
             <tr>
-                <th>Desde</th>
-                <td>{{from|date('d-m-Y')}}</div></td>
+                <th>R.U.T</th>
+                <td style="padding: 0 5px">:</td>
+                <td>{{app.session.get('enterprise').rut}}</div></td>
             </tr>
             <tr>
-                <th>Hasta</th>
-                <td>{{until|date('d-m-Y')}}</td>
+                <th>DIRECCIÓN</th>
+                <td style="padding: 0 5px">:</td>
+                <td>{{app.session.get('enterprise').address}}</div></td>
+            </tr>
+            <tr>
+                <th>GIRO</th>
+                <td style="padding: 0 5px">:</td>
+                <td>{{app.session.get('enterprise').order}}</div></td>
             </tr>
         </tbody>
     </table>
+
+
+<center>
+    <h1>Libro Diario</h1>
+    <p>Desde {{from|date('d-m-Y')}} al {{until|date('d-m-Y')}}</p>
+</center>
+
 
 	{{ form_start(searchForm) }}
         {{ form_widget(searchForm) }}
     {{ form_end(searchForm) }}
     <br>
-    <table class="table table-bordered table-hover">
+    <table class="table">
         <thead>
             <tr>
-                <th>Número</th>
-                <th>Fecha</th>
-                <th>Código</th>
-                <th>Cuenta</th>
-                <th>Voucher</th>
-                <th>Tipo</th>
-                <th>Haber</th>
-                <th>Debe</th>
+                <th>CUENTA</th>
+                <th></th>
+                <th>NUMERO DOCUMENTO</th>
+                <th>GLOSA</th>
+                <th>DEBE</th>
+                <th>HABER</th>
             </tr>
         </thead>
         <tbody>
-        {% set count = 1 %}
         {% for voucher in vouchers %}
             <tr>
-                <td rowspan="{{voucher.getRowspan}}">{{ count }}</td>
-                <td rowspan="{{voucher.getRowspan}}">{{ voucher.date|date('d-m-Y') }}</td>
-                <td rowspan="{{voucher.getRowspan}}">{{ voucher.getFullCode }}</td>
-                <td rowspan="{{voucher.getRowspan}}">{{ voucher.accountL3.name }}</td>
-                <td rowspan="{{voucher.getRowspan}}">{{ voucher.number }}</td>
-                <td rowspan="{{voucher.getRowspan}}">{{ voucher.type }}</td>
-                <td><italic>{{ voucher.getCredit }}</italic></td>
-                <td><italic>{{ voucher.getDebit }}</italic></td>
+                <th>{{ voucher.number }}</th>
+                <th>{{ voucher.date|date('d-m-Y') }}{{voucher.type}}</th>
+                <th colspan="4"></th>
                 {% for item in voucher.items %}
                     <tr>
+                        <td>{{ item.accountL3.getFullCode }}</td>
+                        <td>{{ item.accountL3.name }}</td>
+                        <td>{{ item.documentNumber }}</td>
+                        <td>glosa***</td>
                         <td>{{ item.credit }}</td>
                         <td>{{ item.debit }}</td>
                     </tr>
-                {% endfor %}
+                {% endfor %} 
+            </tr>    
             <tr>
-        {% set count = count + 1 %}
+                <th colspan="4"></th>             
+                <th><italic>{{ voucher.getCredit }}</italic></th>
+                <th><italic>{{ voucher.getDebit }}</italic></th>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
 
     <script type="text/javascript">
+        jQuery(document).ready(function() 
+        {
+            $(".js-basic-single").select2({
+                allowClear: false,
+                width: '100%'
+            });
+        });
+
         function printReady() {
             $('form').hide();
             $('#printButton').hide();
-            window.print();          
+            window.print();
             $('form').show();
             $('#printButton').show();
         }
@@ -80,7 +102,6 @@
     {{ parent() }}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
-    <script src="{{ asset('js/itemCollection.js') }}"></script>
         
 {% endblock %}
 

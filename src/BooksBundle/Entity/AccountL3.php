@@ -44,13 +44,13 @@ class AccountL3
     private $accountL2;
 
     /**
-     * One AccountL3 has Many Vouchers
-     * @ORM\OneToMany(targetEntity="Voucher", mappedBy="accountL3")
+     * One AccountL3 has Many Items
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="accountL3")
      */
-    private $vouchers;
+    private $items;
 
     public function __construct() {
-        $this->vouchers = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     /**
@@ -153,29 +153,6 @@ class AccountL3
     }
 
     /**
-     * Add vouchers
-     *
-     * @param \BooksBundle\Entity\Voucher $vouchers
-     * @return AccountL3
-     */
-    public function addVoucher(\BooksBundle\Entity\Voucher $vouchers)
-    {
-        $this->vouchers[] = $vouchers;
-
-        return $this;
-    }
-
-    /**
-     * Remove vouchers
-     *
-     * @param \BooksBundle\Entity\Voucher $vouchers
-     */
-    public function removeVoucher(\BooksBundle\Entity\Voucher $vouchers)
-    {
-        $this->vouchers->removeElement($vouchers);
-    }
-
-    /**
      * Get vouchers
      *
      * @return \Doctrine\Common\Collections\Collection 
@@ -205,5 +182,38 @@ class AccountL3
         }
 
         return $rowspan;
+    }
+
+    /**
+     * Add items
+     *
+     * @param \BooksBundle\Entity\Item $items
+     * @return AccountL3
+     */
+    public function addItem(\BooksBundle\Entity\Item $items)
+    {
+        $this->items[] = $items;
+
+        return $this;
+    }
+
+    /**
+     * Remove items
+     *
+     * @param \BooksBundle\Entity\Item $items
+     */
+    public function removeItem(\BooksBundle\Entity\Item $items)
+    {
+        $this->items->removeElement($items);
+    }
+
+    /**
+     * Get items
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }
